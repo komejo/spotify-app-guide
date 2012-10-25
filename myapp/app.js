@@ -12,7 +12,7 @@ function renderPlaylists() {
         index       = i,
         img         = new ui.SPImage(playlist.data.cover),
         listView    = new views.List(playlist, function(track) {
-          return new views.Track(track, views.Track.FIELD.STAR | views.Track.FIELD.NAME | views.Track.FIELD.DURATION);
+          return new views.Track(track, views.Track.FIELD.STAR | views.Track.FIELD.NAME );
         });
     $("#playlists").append(
       '<div id="playlist-'+i+'" class="playlist"> \
