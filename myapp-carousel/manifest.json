@@ -1,0 +1,10 @@
+{
+    "BundleType": "Application",
+    "BundleIdentifier": "myapp-carousel",
+    "AppName": {
+        "en": "MyApp - Carousel"
+    },
+    "SupportedLanguages": [
+        "en"
+    ]
+}

@@ -1,0 +1,10 @@
+{
+    "BundleType": "Application",
+    "BundleIdentifier": "myapp",
+    "AppName": {
+        "en": "MyApp"
+    },
+    "SupportedLanguages": [
+        "en"
+    ]
+}

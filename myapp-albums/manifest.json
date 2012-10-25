@@ -1,0 +1,10 @@
+{
+    "BundleType": "Application",
+    "BundleIdentifier": "myapp-albums",
+    "AppName": {
+        "en": "MyApp - Albums"
+    },
+    "SupportedLanguages": [
+        "en"
+    ]
+}

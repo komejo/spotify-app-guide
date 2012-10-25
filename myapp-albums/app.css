@@ -1,0 +1,39 @@
+.image,
+a.plink {
+	background-size: cover;
+	display: block;
+	height: 75px;
+	width: 75px;
+}
+
+h1 {
+	font-size: 2.2em;
+	font-weight: bold;
+	margin: 10px;
+}
+p, .button, h3 {
+	margin: 0 0 10px 0;
+}
+
+/* Playlists */
+#albums,#playlists {
+	clear: both;
+	margin: 10px;
+}
+	.album,.playlist {
+		background: #333;
+		border: 1px solid #666;
+		border-radius: 10px;
+		float: left;
+		padding: 10px;
+		margin: 10px;
+		width: 300px;
+	}
+	#albums h3,#playlists h3 {
+		font-size: 1.2em;
+		font-weight: bold;
+	}
+	#albums .plink,#playlists .plink {
+		float: left;
+		padding: 0 10px 10px 0;
+	}

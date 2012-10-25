@@ -1,0 +1,110 @@
+.image,
+a.plink {
+	background-size: cover;
+	display: block;
+	height: 75px;
+	width: 75px;
+}
+h1 {
+	font-size: 2.2em;
+	font-weight: bold;
+	margin: 10px;
+}
+p, .button, h3 {
+	margin: 0 0 10px 0;
+}
+
+/* Playlists */
+#albums,#playlists {
+	clear: both;
+	margin: 10px;
+}
+	.album,.playlist {
+		background: #333;
+		border: 1px solid #666;
+		border-radius: 10px;
+		float: left;
+		padding: 10px;
+		margin: 10px;
+		width: 300px;
+	}
+	#albums h3,#playlists h3 {
+		font-size: 1.2em;
+		font-weight: bold;
+	}
+	#albums .plink,#playlists .plink {
+		float: left;
+		padding: 0 10px 10px 0;
+	}
+
+/* Song of the Day */
+#song-of-the-day h2 {
+    font-size: 18px;
+    margin: 20px 0 0 20px;
+}
+.song-of-the-day {
+    border: 1px solid #666;
+    border-radius: 10px;
+    display: none;
+    float: left;
+    margin: 5px 0 10px 20px;
+    padding: 10px;
+    width: 90%;
+}
+    .song-of-the-day-img {
+        float: left;
+        padding: 0 10px 10px 0;
+
+        position: relative;
+    }
+	    .song-of-the-day-img .image {
+            height: 75px;
+            width: 75px;
+        }
+    .song-of-the-day-info {
+        margin: 0;
+        min-height: 75px;
+        position: relative;
+    }
+    .sotd-description {
+        float: right;
+        padding-right: 2%;
+        width: 78%;
+    }
+    .sotd-info {
+        float: left;
+        min-height: 75px;
+        width: 20%;
+    }
+    .sotd-info .sp-list{
+        width: 60%;
+    }
+    .sotd-info .sp-list .sp-track-field-star {
+        width: 20px;
+    }
+    .song-of-the-day .pager {
+        float: right;
+        position: relative;
+    }
+    .song-of-the-day-info .desc {
+        padding-left: 10px;
+    }
+/* Paging */
+.pager {
+    position: absolute;
+    right: 0;
+}
+
+.sp-player {
+    height:75px;
+    width:75px;
+}
+    .sp-player .sp-player-button {
+        background: url("sp://import/img/play-button-S.png") transparent;
+        background-position-x: -64px;
+        height: 30px;
+        width: 30px;
+    }
+    .sp-player.sp-player-paused .sp-player-button { background-position-x: 0px;}
+    .sp-player.sp-player-paused .sp-player-button:hover { background-position-x: -32px;}
+    .sp-player .sp-player-button:hover { background-position-x: -96px;}

@@ -1,0 +1,40 @@
+{
+    "Playlists" : [
+        {
+            "uri" : "spotify:user:rachelnabors:playlist:1WKpZKvjVoIw1kt3ZqOut7",
+            "description" : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        },
+        {
+            "uri" : "spotify:user:keatshandwriting:playlist:21J20PgNUj49fSp2UOfawo",
+            "description" : "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        }
+    ],
+    "Albums" : [
+        {
+            "uri" : "spotify:album:0eW4vkDVxqS4U60ExzsKhR",
+            "description" : "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        },
+        {
+            "uri" : "spotify:album:0lNXyDxuSSt7BY5SgNJefb",
+            "description" : "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "
+        }
+    ],
+    "Tracks" : [
+        {
+            "uri" : "spotify:track:3YlkEc9QQOAdMf4kecOA8b",
+            "date" : "2012-08-30 00:00:00",
+            "description" : "Ikea sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        },
+        {
+            "uri" : "spotify:track:7dUMK0nYcV3jVGHlDuLM9w",
+            "date" : "2012-08-31 00:00:00",
+            "description" : "Baby sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        },
+        {
+            "uri" : "spotify:track:7pnfK0ieShr27J6C3JVZRH",
+            "date" : "2012-10-04 00:00:00",
+            "description" : "Champions enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        }
+
+    ]
+}

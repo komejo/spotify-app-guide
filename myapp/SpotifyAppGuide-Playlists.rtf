@@ -1,0 +1,257 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf360
+{\fonttbl\f0\fswiss\fcharset0 ArialMT;\f1\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red17\green85\blue204;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}}
+\vieww12240\viewh15840\viewkind1
+\deftab720
+\pard\pardeftab720\ri0\sl276\slmult1
+
+\f0\b\fs22 \cf0 Building a Spotify App - Playlists
+\b0 \
+by Joe Komenda, {\field{\*\fldinst{HYPERLINK "http://asheavenue.com"}}{\fldrslt \cf2 \ul \ulc2 Ashe Avenue}}\
+\
+\pard\pardeftab720\ri0\sl276\slmult1
+{\field{\*\fldinst{HYPERLINK "http://www.spotify.com/us/"}}{\fldrslt \cf2 \ul \ulc2 Spotify}} is a streaming music service with free ad-supported and paid models. Having previously worked at {\field{\*\fldinst{HYPERLINK "http://www.mergerecords.com/"}}{\fldrslt \cf2 \ul \ulc2 Merge Records}}, I can vouch for the service, as it actually pays royalties to the listed artists. After you download and install the client, you\'92ll see that the service focuses heavily on user-created playlists. It encourages you to make and share playlists as well. \cf2 \ul \ulc2 \
+\pard\pardeftab720\ri0\sl276\slmult1
+\cf0 \ulnone \
+In late 2011, they launched the Spotify App API, allowing you to build your own app. The first set of apps were from Rolling Stone, Pitchfork, and other music sites. They also released a {\field{\*\fldinst{HYPERLINK "https://developer.spotify.com/technologies/apps/"}}{\fldrslt \cf2 \ul \ulc2 development guide}}, a minimally documented {\field{\*\fldinst{HYPERLINK "https://developer.spotify.com/technologies/apps/docs/beta/"}}{\fldrslt \cf2 \ul \ulc2 API}} (beta), and a {\field{\*\fldinst{HYPERLINK "http://www.google.com/url?q=https%3A%2F%2Fdeveloper.spotify.com%2Ftechnologies%2Fapps%2Ftutorial%2F&sa=D&sntz=1&usg=AFQjCNHKVwRQTz7T0XfqwUer6w7JTxv9TQ"}}{\fldrslt \cf2 \ul \ulc2 tutorial}}. \
+\
+The basic idea is this: the Spotify desktop client is Chromium-based, so Apps are single-browser websites that use Javascript to make API function calls and use JSON data to store information.  If you get a developer account and go through the tutorial, you\'92ll have a very basic app.\
+\
+Of course, you\'92ll probably want to have playlists, albums, and some kind of featured song in your app. The docs have little to say about that, but by hunting around on {\field{\*\fldinst{HYPERLINK "http://stackoverflow.com/questions/tagged/spotify"}}{\fldrslt \cf2 \ul \ulc2 Stack Overflow}}, you can piece things together. Since I\'92ve already done that, I\'92m going to share what I\'92ve learned. \
+\
+In the tutorial, you set up the following files:\
+\pard\tx360\tx720\pardeftab720\li720\fi-360\ri0\sl276\slmult1
+\ls1\ilvl0\cf0 \uc0\u9679 	manifest.json\
+\uc0\u9679 	index.html\
+\uc0\u9679 	tutorial.js (Personally, I\'92d call this app.js)\
+\pard\pardeftab720\ri0\sl276\slmult1
+\ls1\ilvl0\cf0 You should also have an 
+\f1\fs20 app.css
+\f0\fs22  file for formatting. Bonus: since this is Chromium, you can use all the funky CSS3 you want. \
+\
+\pard\pardeftab720\ri0\sl276\slmult1
+\ls1\ilvl0
+\b \cf0 Playlists\
+\pard\pardeftab720\ri0\sl276\slmult1
+\ls1\ilvl0
+\b0 \cf0 To get a playlist (or lists) working, you start with a set of sample data, saved in a 
+\f1\fs20 JSON
+\f0\fs22  format. This 
+\f1\fs20 app.json
+\f0\fs22  file can be hosted anywhere, but you\'92ll have to ensure the location is declared in the 
+\f1\fs20 manifest.json
+\f0\fs22 , as per the tutorial. For now, you can just keep it alongside the other files. Here\'92s an example of some playlist data:\
+\pard\pardeftab720\li720\ri0\sl276\slmult1
+\ls1\ilvl0
+\f1\fs16 \cf0 \{ \
+  "Playlists" : [\
+    \{ \
+\pard\pardeftab720\fi720\ri0\sl276\slmult1
+\ls1\ilvl0\cf0       "uri" : "spotify:user:keatshandwriting:playlist:21J20PgNUj49fSp2UOfawo",\
+\pard\pardeftab720\li720\ri0\sl276\slmult1
+\ls1\ilvl0\cf0       "description" : "Lorem ipsum dolor sit amet, consectetur adipisicing..."\
+    \},\
+    \{ \
+\pard\pardeftab720\fi720\ri0\sl276\slmult1
+\ls1\ilvl0\cf0       "uri" : "spotify:user:rachelnabors:playlist:1WKpZKvjVoIw1kt3ZqOut7",\
+      "description" : "Excepteur sint occaecat cupidatat non proident, sunt..."\
+    \}\
+\pard\pardeftab720\li720\ri0\sl276\slmult1
+\ls1\ilvl0\cf0   ]\
+\}\
+\
+\
+\pard\pardeftab720\ri0\sl276\slmult1
+\ls1\ilvl0
+\f0\fs22 \cf0 Inside the \'91Playlists\'92 data type, you can have as many sub-types as you want, but uri is the only one required to get the playlist working.  \
+\
+Now you should clean out all of the tutorial stuff, since you won\'92t use it with a playlist. For example, the tutorial has you doing an onLoad in the body tag - however, we\'92re going to use jQuery, as well as a bunch of API calls, so we\'92ll add that to our cleaned up 
+\f1 index.html
+\f0 :\
+\pard\pardeftab720\li720\ri0\sl276\slmult1
+\ls1\ilvl0
+\f1\fs16 \cf0 <!DOCTYPE html>\
+<html>\
+<head>\
+    <meta charset="utf-8">\
+    <title>MyApp</title>\
+    <link rel="stylesheet" href="sp://import/css/list.css">\
+    <link rel="stylesheet" href="sp://import/css/adam.css">\
+    <link rel="stylesheet" href="app.css">\
+    <script src="jquery.js"></script>\
+    <script src="app.js"></script>\
+</head>\
+<body>\
+    <h1 id="header">My Playlists</h1>\
+    <div id="playlist"></div> <!-- this is the target div -->\
+</body>\
+</html>\
+\pard\pardeftab720\ri0\sl276\slmult1
+\ls1\ilvl0
+\f0\fs22 \cf0 \
+Next, clean up the 
+\f1\fs20 app.js
+\f0\fs22  to only have the following: \
+\pard\pardeftab720\li720\ri0\sl276\slmult1
+\ls1\ilvl0
+\f1\fs16 \cf0 var sp = getSpotifyApi(1),\
+    models = sp.require('sp://import/scripts/api/models'),\
+    views = sp.require('sp://import/scripts/api/views'),\
+    ui = sp.require('sp://import/scripts/ui'),\
+\pard\pardeftab720\fi720\ri0\sl276\slmult1
+\ls1\ilvl0\cf0     appData;\
+\pard\pardeftab720\li720\ri0\sl276\slmult1
+\ls1\ilvl0\cf0 \
+function init() \{\
+    console.log("init()");\
+\}\
+\
+$(document).ready(function()\{\
+    $.ajax(\{\
+        url      : 'app.json',\
+        dataType : 'json',\
+        type     : 'POST',\
+        error    : function(jqXHR, textStatus, errorThrown)\{\
+            console.log(textStatus);\
+            console.log(errorThrown);\
+        \},\
+        success  : function(data, textStatus, jqXHR) \{\
+            appData = data;\
+            init();\
+        \}\
+    \});\
+\});\
+\
+\pard\pardeftab720\ri0\sl276\slmult1
+\ls1\ilvl0
+\f0\fs22 \cf0 By doing this, we get our 
+\f1\fs20 init();
+\f0\fs22  call as well as our data from 
+\f1 app.json
+\f0 . This makes calls to our datatypes as simple as calling 
+\f1\fs20 appData.Playlists
+\f0\fs22 . \
+\
+As for the playlists, you need a function that contains a loop:\
+\pard\pardeftab720\li720\ri0\sl276\slmult1
+\ls1\ilvl0
+\f1\fs16 \cf0 function renderPlaylists() \{\
+  for (i in appData.Playlists) \{\
+    // Get the data from the app.json Playlists and create vars\
+    var playlist    = models.Playlist.fromURI(appData.Playlists[i].uri),\
+        description = appData.Playlists[i].description,\
+        title       = playlist.data.name,\
+        index       = i,\
+        img         = new ui.SPImage(playlist.data.cover),\
+        listView    = new views.List(playlist, function(track) \{\
+          return new views.Track(track, views.Track.FIELD.STAR | views.Track.FIELD.NAME);\
+    \});\
+\
+    // This inserts the html, with appropriately numbered classes and ids\
+    $("#playlists").append(\
+      '<div id="playlist-'+i+'" class="playlist"> \\\
+        <div class="playlist-info"> \\\
+          <div class="playlist-img-'+i+'"><a class="plink" href="'+playlist.uri+'"></a></div> \\\
+            <h3>'+title+'</h3> \\\
+            <button class="add-playlist button icon" value="'+playlist.uri+'"> \\\
+              <span class="plus"></span>Subscribe</button> \\\
+            <p>'+description+'</p> \\\
+          </div> \\\
+        </div> \\\
+      </div>')\
+\pard\pardeftab720\fi720\ri0\sl276\slmult1
+\ls1\ilvl0\cf0       // callback to insert Spotify img and track nodes\
+\pard\pardeftab720\li720\ri0\sl276\slmult1
+\ls1\ilvl0\cf0       .each(function() \{\
+        $(this).find('.playlist-img-'+i+' a').append(img.node).end()\
+          .find('#playlist-'+i+' .playlist-info').append(listView.node)\
+      \});\
+  \}\
+\
+  // This makes the Subscribe button work. Does not need to be in the loop.\
+  $('.add-playlist').on('click', function() \{\
+    var playlist = models.Playlist.fromURI($(this).attr('value'));\
+    playlist.subscribed = true;\
+  \});\
+\}\
+       \
+\pard\pardeftab720\ri0\sl276\slmult1
+\ls1\ilvl0
+\f0\fs22 \cf0 Note: the 
+\f1\fs20 listView
+\f0\fs22  var can also have the optional 
+\f1\fs20 views.Track.FIELD.DURATION |
+\f0  
+\fs22 and 
+\f1\fs20 views.Track.FIELD.ARTIST |
+\f0\fs22  - they were omitted it for code clarity. \
+\
+Don\'92t forget to add 
+\f1\fs20 renderPlaylists();
+\f0\fs22  to the 
+\f1\fs20 init()
+\f0\fs22  function! \
+\pard\pardeftab720\li720\ri0\sl276\slmult1
+\ls1\ilvl0
+\f1\fs16 \cf0 function init() \{\
+    renderPlaylists(); // replaced the console.log() \
+\}\
+\pard\pardeftab720\ri0\sl276\slmult1
+\ls1\ilvl0
+\f0\fs22 \cf0 \
+One last thing to get your app functionally compliant - the loading icon. Spotify did a good job documenting this. All you do is add this to the 
+\f1\fs20 .playlist
+\f0\fs22  div in 
+\f1\fs20 index.html:
+\f0\fs22 \
+\pard\pardeftab720\fi720\ri0\sl276\slmult1
+\ls1\ilvl0
+\f1\fs16 \cf0 <div class="loading">\
+  <div class="throbber"><div></div></div>\
+</div>\
+\pard\pardeftab720\ri0\sl276\slmult1
+\ls1\ilvl0
+\f0\fs22 \cf0 \
+\
+And add this to 
+\f1\fs20 function init()
+\f0\fs22 :\
+\pard\pardeftab720\fi720\ri0\sl276\slmult1
+\ls1\ilvl0
+\f1\fs16 \cf0 var dom = sp.require('sp://import/scripts/dom');\
+  var loadingEl = dom.queryOne('.loading');\
+  dom.destroy(loadingEl);\
+\pard\pardeftab720\ri0\sl276\slmult1
+\ls1\ilvl0
+\f0\fs22 \cf0  \
+Now you\'92ll have a spinner while the Spotify playlist is loading. \
+\
+Now everything is working, but it\'92s a mess. You can\'92t even see the images! This is where you add the following to  
+\f1\fs20 app.css
+\f0\fs22 :\
+\pard\pardeftab720\fi720\ri0\sl276\slmult1
+\ls1\ilvl0
+\f1\fs16 \cf0 a.plink, .image \{\
+  background-size: cover;\
+\pard\pardeftab720\li720\ri0\sl276\slmult1
+\ls1\ilvl0\cf0   display: block;\
+  height: 75px;\
+  width: 75px;\
+\}\
+\
+\pard\pardeftab720\ri0\sl276\slmult1
+\ls1\ilvl0
+\f0\fs22 \cf0 This formats the Spotify image nodes, which are rendered as divs that have Spotify-generated background images.  \
+\
+The anchor tags are there so that a click on the image takes you to the native Spotify playlist page, as per the Spotify {\field{\*\fldinst{HYPERLINK "https://developer.spotify.com/technologies/apps/guidelines/02_app-design-guidelines.html"}}{\fldrslt \cf2 \ul \ulc2 App Design Guidelines}}. Now would be a good time to read those, so you can get started making your app pretty. \
+\
+Good luck, and if you see any errors, typos or omissions, please let me know. \
+\
+Joe Komenda\
+jkomenda@asheavenue.com\
+\
+\
+\
+}
